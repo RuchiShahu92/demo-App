@@ -8,25 +8,21 @@ import Add from '../components/Add';
 
 class Router_main extends Component{
 
-	render()
-	{
+	render(){
+	
 		return(
 			 <div>
 
 				<BrowserRouter>
-					<nav>
-						<Link to="/Home" >Home</Link> |
-						<Link to="/list" >Listing</Link> |
-						<Link to="/add" >Add/ Edit</Link> |
-					</nav>
 					<Switch>
-					// <Route exact path='/' component={Login} />
-					<Route exact path='/home' component={Home} />
-					<Route exact path='/list' component={List} />
-					<Route exact path='/add' component={Add} />
+					<Route path='/home' component={Home} />
+					<Route path='/list' component={List} />
+					<Route path='/add' component={Add} />
+					<Route path='/edit/:id' component={Add} />
+					<Route exact path='/' component={Login} />
 			 
-				</Switch>
-			</BrowserRouter>
+					</Switch>
+				</BrowserRouter>
 			</div>
 			)
 	}

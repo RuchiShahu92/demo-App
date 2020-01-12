@@ -7,22 +7,26 @@ class List extends Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			Data: Data
+			Data: Data,
+			editable: false
 		}
 	}
 
 	handleClick = (event) => {
 		event.preventDefault()
 
-		this.props.history.push('/add')
+		this.props.history.push('/add', this.state)
 	}
 
 	editChange = (e,itemData) => {
 	 
 		let editData = itemData;
+		console.log(editData);
 		this.setState({
-			editItem : editData
-		}, () => this.props.history.push('/add', editData))
+			editItem : editData,
+			editable: true
+
+		}, () => this.props.history.push('/edit/'+itemData.id, this.state))
 	}
 
 	deleteData = (e, id) => {
@@ -32,8 +36,8 @@ class List extends Component{
 		})
 	}
 
-	render()
-	{
+	render(){
+		console.log(this.props)
 		let Data = this.state.Data
 		return(<div>
 

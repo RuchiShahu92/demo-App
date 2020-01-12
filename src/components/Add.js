@@ -10,17 +10,17 @@ class Add extends Component{
 			datatemp : {
 				id: '',	name:'', Designation:''
 				
-			}
+			},
+			editable: this.props.location.state && this.props.location.state.editable
 		}
 	}
 
 	changehandler = (event) => {
-		
-		let datatemp = this.state.datatemp
+		let datatemp = this.state.editable ? this.props.location.state.editItem : this.state.datatemp
 
 		const {name, value} = event.target
 		datatemp[name] = value
-		datatemp['id'] = data.length+1
+		datatemp['id'] = this.state.editable ? datatemp.id : data.length+1
 		this.setState({
 			datatemp
 		})
@@ -30,32 +30,36 @@ class Add extends Component{
 		event.preventDefault();
 		data.push(this.state.datatemp);
 
+
 		this.props.history.push('/list')
 
 	}
 
 	submitupdateHandler(event){
 		event.preventDefault();
-		 
-
-		let data = this.state.datatemp
+		let data = this.state.editable ? this.props.location.state.editItem : this.state.datatemp
+		// let data = this.state.datatemp
 		 
 	 	const { name, value } = event.target
 	 	data[name] = value
 
-	
+
+
 		this.setState({
 			  data
-		},this.props.history.push('/list') )
+		},this.props.history.push('/list'))
 	}
 
 	render(){
-		let edit_data = this.props.location.state;
+		let edit_data = this.state.editable && this.props.location.state.editItem ;
+		console.log(this.props)
 		return(
 
 
 			<div><div> Add PAge </div>
-				<form name="addEditform" onSubmit={edit_data ? this.submitupdateHandler.bind(this) : this.submitHandler.bind(this)}>
+				<form name="addEditform" 
+				onSubmit={edit_data ? this.submitupdateHandler.bind(this) : this.submitHandler.bind(this)}
+				>
 		          <div>
 		            <label>Name : </label>
 		            <input type="text" name="name" 
@@ -74,6 +78,6 @@ class Add extends Component{
 			</div>
 
 		)
-}
+	}
 }
 export default Add;
